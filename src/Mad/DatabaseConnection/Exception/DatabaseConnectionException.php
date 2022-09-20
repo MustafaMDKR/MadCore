@@ -7,10 +7,14 @@ use PDOException;
 
 class DatabaseConnectionException extends PDOException
 {
-  protected $message;
 
-  protected $code;
-
+  /**
+   * Main constructor class which overrides the parent constructor and set
+   * the message and code properties which are optional
+   *
+   * @param string $message
+   * @param int $code
+   */
   public function __construct($message = null, $code = null)
   {
     $this->message = $message;
