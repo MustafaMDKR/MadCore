@@ -1,0 +1,14 @@
+{
+    "name": "dash/madcore",
+    "description": "A simple PHP framework for building web applications",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mustafa Madkour",
+            "email": "mustafamdkr@gmail.com"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require": {}
+}
