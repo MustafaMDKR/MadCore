@@ -1,14 +1,41 @@
 {
-    "name": "dash/madcore",
-    "description": "A simple PHP framework for building web applications",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Mustafa Madkour",
-            "email": "mustafamdkr@gmail.com"
-        }
-    ],
-    "minimum-stability": "alpha",
-    "require": {}
+  "name": "dash/madcore",
+  "description": "A simple PHP framework for building web applications",
+  "keywords": ["framework", "php", "mvc", "madcore"],
+  "type": "library",
+  "license": "MIT",
+  "readme": "",
+  "time": "",
+  "support": {
+    "issues": "https://github.com/MustafaMDKR/MadCore/issues",
+    "source": "https://github.com/MustafaMDKR/MadCore",
+    "wiki": "https://github.com/MustafaMDKR/MadCore/wiki" 
+  },
+  "authors": [
+    {
+      "name": "Mustafa Madkour",
+      "email": "mustafamdkr@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "alpha",
+  "require": {
+    "php": "7.4.2 | ^8.1.2",
+    "ext-mbstring": "*",
+    "ext-iconv": "*",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "ext-simplexml": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mad\\": "src/Mad"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Mad\\Tests\\": "tests/"
+    }
+  }
 }
