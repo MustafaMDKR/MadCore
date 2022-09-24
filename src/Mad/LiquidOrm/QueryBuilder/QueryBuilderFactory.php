@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mad\LiquidOrm\QueryBuilder;
 
+use Mad\LiquidOrm\QueryBuilder\Exception\QueryBuilderException;
+
 class QueryBuilderFactory
 {
     /**
