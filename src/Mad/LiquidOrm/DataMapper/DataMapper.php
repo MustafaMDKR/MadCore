@@ -163,7 +163,7 @@ class DataMapper implements DataMapperInterface
    *
    * @return void
    */
-  public function execute(): void
+  public function execute()
   {
     if ($this->statement) {
       return $this->statement->execute();
@@ -224,6 +224,24 @@ class DataMapper implements DataMapperInterface
           return intval($lastId);
         }
       }
+    } catch (Throwable $throwable) {
+      throw $throwable;
+    }
+  }
+
+  public function buildQueryParameters(array $conditions = [], array $parameters = [])
+  {
+    if (!empty($conditions) || !empty($parameters)) {
+      return array_merge($conditions, $parameters);
+    } else {
+      return $parameters;
+    }
+  }
+
+  public function persist(string $sqlQuery, array $parameters)
+  {
+    try {
+      return $this->prepare($sqlQuery)->bindParameters($parameters)->execute();
     } catch (Throwable $throwable) {
       throw $throwable;
     }

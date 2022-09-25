@@ -25,7 +25,7 @@ class QueryBuilder implements QueryBuilderInterface
         'raw' => '',
     ];
 
-    protected const QUERY_TYPES = ['insert', 'select', 'update', 'delete', 'raw'];
+    protected const QUERY_TYPES = ['insert', 'select', 'update', 'delete', 'raw', 'search'];
 
     protected array $key;
 
@@ -132,6 +132,12 @@ class QueryBuilder implements QueryBuilderInterface
         return false;
     }
 
+
+    public function searchQuery(): string
+    {
+        return '';
+    }
+
     /**
      * Checks if the query type is valid.
      */
@@ -143,6 +149,14 @@ class QueryBuilder implements QueryBuilderInterface
 
         return false;
     }
+
+
+
+    public function rawQuery(): string
+    {
+        return '';
+    }
+
 
     private function hasConditions()
     {

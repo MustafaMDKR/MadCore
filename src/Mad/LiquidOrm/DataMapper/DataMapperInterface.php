@@ -48,7 +48,7 @@ interface DataMapperInterface
    *
    * @return void
    */
-  public function execute(): void;
+  public function execute();
 
 
   /**

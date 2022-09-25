@@ -12,7 +12,7 @@ interface RouterInterface
    * @param array  $params
    * @return void
    */
-  public function add(string $route, array $params): void;
+  public function add(string $route, array $params = []): void;
 
   /**
    * Dispatch route and create controller objects and excute

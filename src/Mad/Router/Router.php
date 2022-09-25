@@ -2,6 +2,9 @@
 declare(strict_types=1);
 
 namespace Mad\Router;
+
+use Mad\Router\Exception\RouterBadMethodCallException;
+use Mad\Router\Exception\RouterException;
 use Mad\Router\RouterInterface;
 
 class Router implements RouterInterface
@@ -53,15 +56,15 @@ class Router implements RouterInterface
         if (\is_callable([$controllerObject, $action])) {
           $controllerObject->$action();
         } else {
-          throw new Exception();
+          throw new RouterBadMethodCallException();
         }
 
       } else {
-        throw new Exception();
+        throw new RouterBadMethodCallException();
       }
 
     } else {
-      throw new Exception();
+      throw new RouterBadMethodCallException();
     }
   }
 
