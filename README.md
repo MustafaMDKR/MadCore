@@ -1,6 +1,10 @@
 # MadCore
 
+## DatabaseConnection
+Creating a database interface and class to open & close a connection to our database.
+
 ## LiquidOrm
+Got 4 layers to interact with data and queries:
 
 ### DataMapper
 We now got our DatMapper which wraps around PDO methods
