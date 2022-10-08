@@ -22,4 +22,9 @@ to make changes we can make changes in one place without effecting our queries.
 This is the layer which interacts directly with our database.
 So it got the Crud class in it that does all the CRUD operations 
 
-### Going on with the Repository layer
+### Data Repository layer
+This layer contains the methods which organise dealing with finding a specific data 
+from our database
+
+## Session
+Here we have session interface , session class, session factory,session storage interface, Native & Abstract session storage class. 

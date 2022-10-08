@@ -11,7 +11,7 @@ interface SessionStorageInterface
 
     public function getSessionName(): string;
 
-    public function setSessionID($sessionID): void;
+    public function setSessionID(string $sessionID): void;
 
     public function getSessionID();
 
@@ -21,7 +21,7 @@ interface SessionStorageInterface
 
     public function getSession(string $key, $default = null);
 
-    public function deleteSession(string $key): bool;
+    public function deleteSession(string $key): void;
 
     public function invalidate(): void;
 
