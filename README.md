@@ -1,5 +1,8 @@
 # MadCore
 
+## Router
+A class and interface which manage routing in our framework
+
 ## DatabaseConnection
 Creating a database interface and class to open & close a connection to our database.
 
@@ -28,3 +31,6 @@ from our database
 
 ## Session
 Here we have session interface , session class, session factory,session storage interface, Native & Abstract session storage class. 
+
+## BaseClasses
+Ongoing ...
