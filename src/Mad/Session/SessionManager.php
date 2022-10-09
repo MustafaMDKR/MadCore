@@ -9,7 +9,7 @@ use Mad\Session\Storage\NativeSessionStorage;
 class SessionManager
 {
 
-    public function intialize()
+    public static function intialize()
     {
         $factory = new SessionFactory();
         return $factory->create('', NativeSessionStorage::class, array());
