@@ -50,3 +50,8 @@ A component for dealing with flash messages within the session component
 ## Http Handler
 A component to deal with Request and Response extended from Symfony HTTP Foundation
 
+## Error Handler
+A component to control the display of errors to our users and also for developers by
+converting all errors to exceptions by throwing an ErrorException.
+
+
