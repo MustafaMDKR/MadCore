@@ -74,7 +74,7 @@ class Session implements SessionInterface
         $this->storage->invalidate();
     }
 
-    public function flush(string $key, mixed $value)
+    public function flush(string $key, mixed $value = null)
     {
         $this->ensureSessionKeyIsValid($key);
 
