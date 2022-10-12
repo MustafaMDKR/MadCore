@@ -20,7 +20,7 @@
   ],
   "minimum-stability": "alpha",
   "require": {
-    "php": "7.4.2 | ^8.1.2",
+    "php": "7.4.12 | ^8.1.2",
     "ext-mbstring": "*",
     "ext-iconv": "*",
     "ext-pdo": "*",
