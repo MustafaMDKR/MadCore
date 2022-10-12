@@ -11,8 +11,14 @@ use Mad\LiquidOrm\QueryBuilder\QueryBuilderInterface;
 class EntityManagerFactory
 {
 
+    /**
+     * @var DataMapperInterface
+     */
     protected DataMapperInterface $dataMapper;
 
+    /**
+     * @var QueryBuilderInterface
+     */
     protected QueryBuilderInterface $queryBuilder;
 
 
@@ -29,6 +35,16 @@ class EntityManagerFactory
     }
 
 
+    /**
+     * A method to create the entity manager object and inject the 
+     * dependency which is in the crud object
+     *
+     * @param string $crudString
+     * @param string $tableSchema
+     * @param string $tableSchemaID
+     * @param array  $options
+     * @return EntityManagerInterface
+     */
     public function create(string $crudString, string $tableSchema, string $tableSchemaID, array $options = []): EntityManagerInterface
     {
         $crudObject = new $crudString($this->dataMapper, $this->queryBuilder, $tableSchema, $tableSchemaID, $options);

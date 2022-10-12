@@ -11,11 +11,31 @@ use Throwable;
 
 class Session implements SessionInterface
 {
-    protected const SESSION_PATTERN = '/^[a-zA-Z0-9_\.]{1,64}$/';
+    
+    /**
+     * @var SessionStorageInterface
+     */
     protected SessionStorageInterface $storage;
 
+    /**
+     * @var string
+     */
     protected string $sessionName;
 
+
+    /**
+     * @var string
+     */
+    protected const SESSION_PATTERN = '/^[a-zA-Z0-9_\.]{1,64}$/';
+
+
+    /**
+     * A main class constructor
+     *
+     * @param string                       $sessionName
+     * @param SessionStorageInterface|null $storage
+     * @throws SessionInvalidArgumentException
+     */
     public function __construct(string $sessionName, SessionStorageInterface $storage = null)
     {
         if (false === $this->isSessionKeyValid($sessionName)) {
@@ -25,6 +45,15 @@ class Session implements SessionInterface
         $this->storage = $storage;
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @param mixed  $value
+     * @return void
+     * @throws SessionException
+     */
     public function set(string $key, mixed $value): void
     {
         $this->ensureSessionKeyIsValid($key);
@@ -36,6 +65,15 @@ class Session implements SessionInterface
         }
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @param mixed  $value
+     * @return void
+     * @throws SessionException
+     */
     public function setArray(string $key, mixed $value): void
     {
         $this->ensureSessionKeyIsValid($key);
@@ -47,6 +85,15 @@ class Session implements SessionInterface
         }
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return void
+     * @throws SessionException
+     */
     public function get(string $key, $default = null)
     {
         try {
@@ -56,6 +103,14 @@ class Session implements SessionInterface
         }
     }
 
+    
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @return boolean
+     * @throws SessionException
+     */
     public function delete(string $key): bool
     {
         $this->ensureSessionKeyIsValid($key);
@@ -69,11 +124,26 @@ class Session implements SessionInterface
         return true;
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @return void
+     */
     public function invalidate(): void
     {
         $this->storage->invalidate();
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @param mixed  $value
+     * @return void
+     * @throws SessionException
+     */
     public function flush(string $key, mixed $value = null)
     {
         $this->ensureSessionKeyIsValid($key);
@@ -85,6 +155,14 @@ class Session implements SessionInterface
         }
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @return boolean
+     * @throws SessionInvalidArgumentException
+     */
     public function has(string $key): bool
     {
         $this->ensureSessionKeyIsValid($key);
@@ -92,11 +170,25 @@ class Session implements SessionInterface
         return $this->storage->hasSession($key);
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @return boolean
+     */
     protected function isSessionKeyValid(string $key): bool
     {
-        return 1 === preg_match(self::SESSION_PATTERN, $key);
+        return (preg_match(self::SESSION_PATTERN, $key) === 1);
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @return void
+     */
     protected function ensureSessionKeyIsValid(string $key): void
     {
         if (false === $this->isSessionKeyValid($key)) {

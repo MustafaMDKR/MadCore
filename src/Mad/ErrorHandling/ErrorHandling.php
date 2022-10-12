@@ -29,6 +29,13 @@ class ErrorHandling
     }
 
 
+    /**
+     * A method for exception handler
+     *
+     * @param Exception $exception
+     * @return void
+     * @throws Exception
+     */
     public static function exceptionHandler($exception)
     {
         $code = $exception->getCode();

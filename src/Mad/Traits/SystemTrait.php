@@ -11,6 +11,13 @@ use Mad\Session\SessionManager;
 trait SystemTrait
 {
 
+
+    /**
+     * A method to intialize the system session at the entry point within the application.
+     *
+     * @param boolean $useSessionGlobal
+     * @return void
+     */
     public static function sessionInit(bool $useSessionGlobal = false)
     {
         $session = SessionManager::intialize();

@@ -11,13 +11,29 @@ use Throwable;
 class DataRepository implements DataRepositoryInterface
 {
 
+    /**
+     * @var EntityManagerInterface
+     */
     protected EntityManagerInterface $em;
 
+
+    /**
+     * Main class constructor
+     *
+     * @param EntityManagerInterface $em
+     */
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
 
+
+    /**
+     * A method to check whether the argument is of the type array else throw an exception
+     *
+     * @param array $conditions
+     * @return void
+     */
     private function isArray(array $conditions): void
     {
         if (!is_array($conditions)) {
@@ -25,6 +41,13 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+
+    /**
+     * A method to check whether the argument is set else throws an exception
+     *
+     * @param integer $id
+     * @return void
+     */
     private function isEmpty(int $id): void
     {
         if (empty($id)) {
@@ -32,6 +55,13 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param integer $id
+     * @return array
+     */
     public function find(int $id): array
     {
         $this->isEmpty($id);
@@ -43,6 +73,11 @@ class DataRepository implements DataRepositoryInterface
     }
 
 
+    /**
+     * @inheritDoc
+     *
+     * @return array
+     */
     public function findAll(): array
     {
         try {
@@ -53,6 +88,15 @@ class DataRepository implements DataRepositoryInterface
     }
 
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $selectors
+     * @param array $conditions
+     * @param array $parameters
+     * @param array $optional
+     * @return array
+     */
     public function findBy(array $selectors = [], array $conditions = [], array $parameters = [], array $optional = []): array
     {
         try {
@@ -62,6 +106,13 @@ class DataRepository implements DataRepositoryInterface
         }
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param array $conditions
+     * @return array
+     */
     public function findOneBy(array $conditions): array
     {
         $this->isArray($conditions);
@@ -73,12 +124,28 @@ class DataRepository implements DataRepositoryInterface
     }
 
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $conditions
+     * @param array $selectors
+     * @return object
+     */
     public function findObjectBy(array $conditions = [], array $selectors = []): object
     {
         
     }
 
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $selectors
+     * @param array $conditions
+     * @param array $parameters
+     * @param array $optional
+     * @return array
+     */
     public function findBySearch(array $selectors = [], array $conditions = [], array $parameters = [], array $optional = []): array
     {
         $this->isArray($conditions);
@@ -90,6 +157,12 @@ class DataRepository implements DataRepositoryInterface
     }
 
 
+    /**
+     * @inheritDoc
+     *
+     * @param array $conditions
+     * @return boolean
+     */
     public function findByIdAndDelete(array $conditions): bool
     {
         $this->isArray($conditions);
@@ -107,6 +180,13 @@ class DataRepository implements DataRepositoryInterface
     }
 
 
+    /**
+     * @inheritDoc
+     *
+     * @param array   $fields
+     * @param integer $id
+     * @return boolean
+     */
     public function findByIdAndUpdate(array $fields = [], int $id): bool
     {
         $this->isArray($fields);
@@ -127,13 +207,27 @@ class DataRepository implements DataRepositoryInterface
     }
 
 
+    /**
+     * @inheritDoc
+     *
+     * @param array  $args
+     * @param object $request
+     * @return array
+     */
     public function findWithSearchAndPaging(array $args, object $request): array
     {
         return [];
     }
 
 
-    public function findAndReturn(int $id, array $selectors = []): DataRepositoryInterface
+    /**
+     * @inheritDoc
+     *
+     * @param integer $id
+     * @param array   $selectors
+     * @return self
+     */
+    public function findAndReturn(int $id, array $selectors = []): self
     {
         return $this;
     }

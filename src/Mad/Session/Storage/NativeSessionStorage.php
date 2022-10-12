@@ -7,21 +7,50 @@ namespace Mad\Session\Storage;
 class NativeSessionStorage extends AbstractSessionStorage
 {
 
+    /**
+     * Main class constructor
+     *
+     * @param array $options
+     */
     public function __construct(array $options = [])
     {
         parent::__construct($options);
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @param mixed  $value
+     * @return void
+     */
     public function setSession(string $key, mixed $value): void
     {
         $_SESSION[$key] = $value;
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @param mixed  $value
+     * @return void
+     */
     public function setArraySession(string $key, mixed $value): void
     {
         $_SESSION[$key][] = $value;
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return void
+     */
     public function getSession(string $key, $default = null)
     {
         if ($this->hasSession($key)) {
@@ -30,6 +59,13 @@ class NativeSessionStorage extends AbstractSessionStorage
         return $default;
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @return void
+     */
     public function deleteSession(string $key): void
     {
         if ($this->hasSession($key)) {
@@ -37,6 +73,12 @@ class NativeSessionStorage extends AbstractSessionStorage
         }
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @return void
+     */
     public function invalidate(): void
     {
         $_SESSION = array();
@@ -49,6 +91,14 @@ class NativeSessionStorage extends AbstractSessionStorage
         session_destroy();
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return void
+     */
     public function flush(string $key, $default = null)
     {
         if ($this->hasSession($key)) {
@@ -59,6 +109,13 @@ class NativeSessionStorage extends AbstractSessionStorage
         return $default;
     }
 
+
+    /**
+     * @inheritDoc
+     *
+     * @param string $key
+     * @return boolean
+     */
     public function hasSession(string $key): bool
     {
         return isset($_SESSION[$key]);

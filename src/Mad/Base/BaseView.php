@@ -4,6 +4,7 @@ declare (strict_types=1);
 
 namespace Mad\Base;
 
+use Mad\Twig\TwigExtension;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\Extension\DebugExtension;
@@ -28,7 +29,7 @@ class BaseView
     {
         static $twig;
         if ($twig === null) {
-            $loader = new FilesystemLoader('templates', TEMPLATES_PATH);
+            $loader = new FilesystemLoader('templates', TEMPLATE_PATH);
             $twig = new Environment($loader, array());
             $twig->addExtension(new DebugExtension());
             $twig->addExtension(new TwigExtension());

@@ -6,5 +6,12 @@ namespace Mad\LiquidOrm\EntityManager;
 
 interface EntityManagerInterface
 {
-  public function getCrud(): Object;
+
+    /**
+     * A method to get the crud object which will expose all the 
+     * methods within our crud class.
+     *
+     * @return object
+     */
+    public function getCrud(): object;
 }

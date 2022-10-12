@@ -15,6 +15,13 @@ class QueryBuilderFactory
     {
     }
 
+
+    /**
+     * A method to create the Query Builder Object 
+     *
+     * @param string $queryBuilderString
+     * @return QueryBuilderInterface
+     */
     public function create(string $queryBuilderString): QueryBuilderInterface
     {
         $queryBuilderObj = new $queryBuilderString();
