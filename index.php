@@ -9,4 +9,5 @@ if (is_file($autoload)) {
     require $autoload;
 }
 
-(new Application(ROOT_DIR))->run();
+$app = new Application(ROOT_DIR);
+$app->run();

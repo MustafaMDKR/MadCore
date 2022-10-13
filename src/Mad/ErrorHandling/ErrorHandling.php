@@ -22,7 +22,7 @@ class ErrorHandling
      */
     public static function errorHandler($severity, $message, $file, $line)
     {
-        if (!error_reporting() && $severity) {
+        if (!error_reporting() !== 0) {
             return;
         }
         throw new ErrorException($message, 0, $file, $line);

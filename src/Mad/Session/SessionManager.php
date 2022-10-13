@@ -5,6 +5,7 @@ declare (strict_types=1);
 namespace Mad\Session;
 
 use Mad\Session\Storage\NativeSessionStorage;
+use Mad\Yaml\YamlConfig;
 
 class SessionManager
 {
@@ -14,11 +15,11 @@ class SessionManager
      * session storage and we will fetch the session name and array of options from  
      * the core yaml configuration files.
      *
-     * @return void
+     * @return object
      */
-    public static function intialize()
+    public static function intialize(): Object
     {
         $factory = new SessionFactory();
-        return $factory->create('', NativeSessionStorage::class, array());
+        return $factory->create('madcore', NativeSessionStorage::class, YamlConfig::file('session'));
     }
 }

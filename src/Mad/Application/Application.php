@@ -3,18 +3,33 @@
 declare(strict_types=1);
 
 namespace Mad\Application;
+use Mad\Traits\SystemTrait;
+
 
 class Application
 {
 
+    /**
+     * @var string
+     */
     protected string $appRoot;
 
+    /**
+     * Main class constructor
+     *
+     * @param string $appRoot
+     */
     public function __construct(string $appRoot)
     {
         $this->appRoot = $appRoot;
     }
 
 
+    /**
+     * A method for Execution at application level
+     *
+     * @return self
+     */
     public function run(): self
     {
         $this->constants();
@@ -25,11 +40,16 @@ class Application
 
         $this->environment();
         $this->errorHandler();
-        
+
         return $this;
     }
 
 
+    /**
+     * A method to define framework and application directory constants
+     *
+     * @return void
+     */
     private function constants(): void
     {
         define('DS', '/');
@@ -40,17 +60,35 @@ class Application
     }
 
 
+    /**
+     * A method to set framework and application settings
+     *
+     * @return void
+     */
     private function environment()
     {
         ini_set('default_charset', 'UTF-8');
     }
 
 
+    /**
+     * A method to convert PHP errors to exceptions and to set a custom
+     * exception handler which will allow us to take control of error handling 
+     * sothat we can display errors in a customizable way.
+     *
+     * @return void
+     */
     private function errorHandler(): void
     {
 
         error_reporting(E_ALL | E_STRICT);
         set_error_handler('MAD\ErrorHandling\ErrorHandling::errorHandler');
         set_exception_handler('MAD\ErrorHandling\ErrorHandling::exceptionHandler');
+    }
+
+
+    public function setSession()
+    {
+        SystemTrait::sessionInit(true);
     }
 }

@@ -22,7 +22,9 @@ abstract class AbstractSessionStorage implements SessionStorageInterface
      */
     public function __construct(array $options)
     {
-        $this->options = $options;
+        if ($options) {
+            $this->options = $options;
+        }
         $this->iniSet();
         if ($this->isSessionStarted()) {
             session_unset();

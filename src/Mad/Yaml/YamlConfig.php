@@ -50,11 +50,11 @@ class YamlConfig
      * A method to load yaml configuration into yaml parser
      *
      * @param string $yamlFile
-     * @return void
+     * @return array
      */
-    public static function file(string $yamlFile)
+    public static function file(string $yamlFile): array
     {
-        return (new YamlConfig)->getYaml($yamlFile);
+        return (array)(new YamlConfig)->getYaml($yamlFile);
     }
 
 }
