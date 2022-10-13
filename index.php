@@ -2,7 +2,7 @@
 
 use Mad\Application\Application;
 
-define('ROOT_DIR', realpath(dirname(__FILE__)));
+defined('ROOT_DIR') or define('ROOT_DIR', realpath(dirname(__FILE__)));
 
 $autoload = ROOT_DIR . '/vendor/autoload.php';
 if (is_file($autoload)) {
@@ -10,4 +10,8 @@ if (is_file($autoload)) {
 }
 
 $app = new Application(ROOT_DIR);
-$app->run();
+
+
+$app
+    ->run()
+    ->setSession();
