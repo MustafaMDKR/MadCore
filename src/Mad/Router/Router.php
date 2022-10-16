@@ -35,6 +35,10 @@ class Router implements RouterInterface
    */
   public function add(string $route, array $params = []): void
   {
+    $route = preg_replace('/\//', '\\/', $route);
+    $route = '/^' . $route . '$/i';
+
+
     $this->routes[$route] = $params;
   }
 
@@ -43,8 +47,9 @@ class Router implements RouterInterface
    */
   public function dispatch(string $url): void
   {
+    $url = $this->formatQueryString($url);
     if ($this->match($url)) {
-      $controllerString = $this->params['controller'];
+      $controllerString = $this->params['controller'] . $this->controllerSuffix;
       $controllerString = $this->transformUpperCamleCase($controllerString);
       $controllerString = $this->getNamespace($controllerString);
 
@@ -102,6 +107,7 @@ class Router implements RouterInterface
   }
 
 
+
   /**
    * Get the namespace of the controller class. The namespace difined within 
    * the route parameters only if it was added
@@ -117,5 +123,21 @@ class Router implements RouterInterface
     }
     return $namespace;
   }
+
+
+  protected function formatQueryString($url)
+    {
+        if ($url != '') {
+            $parts = explode('&', $url, 2);
+
+            if (strpos($parts[0], '=') === false) {
+                $url = $parts[0];
+            } else {
+                $url = '';
+            }
+        }
+
+        return rtrim($url, '/');
+    }
 
 }

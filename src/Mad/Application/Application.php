@@ -3,7 +3,10 @@
 declare(strict_types=1);
 
 namespace Mad\Application;
+
+use Mad\Router\RouterManager;
 use Mad\Traits\SystemTrait;
+
 
 
 class Application
@@ -82,13 +85,20 @@ class Application
     {
 
         error_reporting(E_ALL | E_STRICT);
-        set_error_handler('MAD\ErrorHandling\ErrorHandling::errorHandler');
-        set_exception_handler('MAD\ErrorHandling\ErrorHandling::exceptionHandler');
+        set_error_handler('Mad\ErrorHandling\ErrorHandling::errorHandler');
+        set_exception_handler('Mad\ErrorHandling\ErrorHandling::exceptionHandler');
     }
 
 
     public function setSession()
     {
         SystemTrait::sessionInit(true);
+        return $this;
+    }
+
+    public function setRouteHandler(string $url): self
+    {
+        RouterManager::dispatchRoute($url);
+        return $this;
     }
 }

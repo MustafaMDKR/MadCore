@@ -33,7 +33,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Mad\\": "src/Mad"
+      "Mad\\": "src/Mad",
+      "App\\": "App/"
     }
   },
   "autoload-dev": {
