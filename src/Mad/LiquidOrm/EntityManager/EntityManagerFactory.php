@@ -4,8 +4,8 @@ declare (strict_types=1);
 
 namespace Mad\LiquidOrm\EntityManager;
 
+use Mad\Base\Exception\BaseUnexpectedValueException;
 use Mad\LiquidOrm\DataMapper\DataMapperInterface;
-use Mad\LiquidOrm\EntityManager\Exception\CrudException;
 use Mad\LiquidOrm\QueryBuilder\QueryBuilderInterface;
 
 class EntityManagerFactory
@@ -49,7 +49,7 @@ class EntityManagerFactory
     {
         $crudObject = new $crudString($this->dataMapper, $this->queryBuilder, $tableSchema, $tableSchemaID, $options);
         if (!$crudObject instanceof CrudInterface) {
-            throw new CrudException($crudString . ' is not a valid CRUD object');
+            throw new BaseUnexpectedValueException($crudString . ' is not a valid CRUD object');
         }
         return new EntityManager($crudObject);
     }

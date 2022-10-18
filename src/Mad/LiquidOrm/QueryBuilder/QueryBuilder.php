@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Mad\LiquidOrm\QueryBuilder;
 
+use Mad\Base\Exception\BaseInvalidArgException;
 use Mad\LiquidOrm\QueryBuilder\Exception\QueryBuilderInvalidArgsExcep;
 
 class QueryBuilder implements QueryBuilderInterface
@@ -39,7 +40,7 @@ class QueryBuilder implements QueryBuilderInterface
     public function buildQuery(array $args = []): self
     {
         if (count($args) < 0) {
-            throw new QueryBuilderInvalidArgsExcep();
+            throw new BaseInvalidArgException('Your BuildQuery method has no defined argument');
         }
         $arg = array_merge(self::SQL_DEFAULT, $args);
         $this->key = $arg;
@@ -170,7 +171,7 @@ class QueryBuilder implements QueryBuilderInterface
             if (count($this->key['conditions']) > 0) {
                 $this->sqlQuery .= ' WHERE '.implode(' AND ', $sort);
             }
-        } elseif (empty($this->key['conditions'])) {
+        } elseif (empty($this->key['conditions'])) {   // To be modified
             $this->sqlQuery = ' WHERE 1';
         }
         if (isset($this->key['orderBy']) && '' != $this->key['orderBy']) {

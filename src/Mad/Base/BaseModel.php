@@ -4,6 +4,7 @@ declare (strict_types=1);
 
 namespace Mad\Base;
 
+use Mad\Base\Exception\BaseInvalidArgException;
 use Mad\LiquidOrm\DataRepository\DataRepository;
 use Mad\LiquidOrm\DataRepository\DataRepositoryFactory;
 
@@ -38,7 +39,7 @@ class BaseModel
         if (empty($tableSchema) || empty($tableSchemaID)) {
             throw new BaseInvalidArgException('These arguments are required.');
         }
-        $factory = new DataRepositoryFactory('', $tableSchema, $tableSchemaID);
+        $factory = new DataRepositoryFactory('basicCrud', $tableSchema, $tableSchemaID);
         $this->repository = $factory->create(DataRepository::class);
     }
 

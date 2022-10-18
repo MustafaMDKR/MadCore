@@ -14,7 +14,7 @@ class BaseController
     /**
      * @var array
      */
-    protected array $routeParams = [];
+    protected array $routeParams;
 
     /**
      * @var Object

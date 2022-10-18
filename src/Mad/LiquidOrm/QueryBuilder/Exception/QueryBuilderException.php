@@ -2,9 +2,9 @@
 declare(strict_types=1);
 namespace Mad\LiquidOrm\QueryBuilder\Exception;
 
-use Exception;
+use Mad\Base\Exception\BaseException;
 
-class QueryBuilderException extends Exception
+class QueryBuilderException extends BaseException
 {
   
 }

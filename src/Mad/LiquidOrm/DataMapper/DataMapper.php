@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mad\LiquidOrm\DataMapper;
 
+use Mad\Base\Exception\BaseInvalidArgException;
+use Mad\Base\Exception\BaseNoValueException;
 use Mad\DatabaseConnection\DatabaseConnectionInterface;
 use Mad\LiquidOrm\DataMapper\Exception\DataMapperException;
 use PDO;
@@ -49,7 +51,7 @@ class DataMapper implements DataMapperInterface
   {
 
     if (empty($value)) {
-      throw new DataMapperException($errorMessage);
+      throw new BaseNoValueException($errorMessage);
     }
   }
 
@@ -60,12 +62,12 @@ class DataMapper implements DataMapperInterface
    *
    * @param array $value
    * @return void
-   * @throws DataMapperException
+   * @throws BaseInvalidArgException
    */
   private function isArray(array $value)
   {
     if (!is_array($value)) {
-      throw new DataMapperException('Your argument needs to be an array');
+      throw new BaseInvalidArgException('Your argument needs to be an array');
     }
   }
 
@@ -78,6 +80,7 @@ class DataMapper implements DataMapperInterface
    */
   public function prepare(string $sqlQuery): self
   {
+    $this->isEmpty($sqlQuery);
     $this->statement = $this->dbh->open()->prepare($sqlQuery);
     return $this;
   }
@@ -112,7 +115,7 @@ class DataMapper implements DataMapperInterface
   public function bindParameters(array $fields, bool $isSearch = false): self
   {
     if (is_array($fields)){
-      $type = ($isSearch === false) ? $this->bindValues($fields) : $this->bind($fields);
+      $type = ($isSearch === false) ? $this->bindValues($fields) : $this->bindSearchValues($fields);
       if ($type) {
         return $this;
       }
@@ -127,7 +130,7 @@ class DataMapper implements DataMapperInterface
    *
    * @param array $fields
    * @return PDOStatement
-   * @throws DataMapperException
+   * @throws BaseInvalidArgException
    */
   protected function bindValues(array $fields): PDOStatement
   {
@@ -146,7 +149,7 @@ class DataMapper implements DataMapperInterface
    *
    * @param array $fields
    * @return PDOStatement
-   * @throws DataMapperException
+   * @throws BaseInvalidArgException
    */
   protected function bindSearchValues(array $fields): PDOStatement
   {

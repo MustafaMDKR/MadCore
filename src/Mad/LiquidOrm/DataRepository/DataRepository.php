@@ -4,6 +4,7 @@ declare (strict_types=1);
 
 namespace Mad\LiquidOrm\DataRepository;
 
+use Mad\Base\Exception\BaseInvalidArgException;
 use Mad\LiquidOrm\DataRepository\Exception\DataRepositoryInvalidArgsException;
 use Mad\LiquidOrm\EntityManager\EntityManagerInterface;
 use Throwable;
@@ -37,7 +38,7 @@ class DataRepository implements DataRepositoryInterface
     private function isArray(array $conditions): void
     {
         if (!is_array($conditions)) {
-            throw new DataRepositoryInvalidArgsException('The argument supplied is not an array');
+            throw new BaseInvalidArgException('The argument supplied is not an array');
         }
     }
 
@@ -51,7 +52,7 @@ class DataRepository implements DataRepositoryInterface
     private function isEmpty(int $id): void
     {
         if (empty($id)) {
-            throw new DataRepositoryInvalidArgsException('Argument shold not be empty.');
+            throw new BaseInvalidArgException('Argument shold not be empty.');
         }
     }
 
@@ -81,7 +82,8 @@ class DataRepository implements DataRepositoryInterface
     public function findAll(): array
     {
         try {
-            return $this->em->getCrud()->read();
+            // return $this->em->getCrud()->read();
+            return $this->findBy();
         } catch (Throwable $throwable) {
             throw $throwable;
         }

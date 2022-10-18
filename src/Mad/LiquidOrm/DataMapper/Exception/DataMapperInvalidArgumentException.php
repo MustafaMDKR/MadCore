@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Mad\LiquidOrm\DataMapper\Exception;
 
-use InvalidArgumentException;
+use Mad\Base\Exception\BaseInvalidArgException;
 
-class DataMapperInvalidArgumentException extends InvalidArgumentException
+class DataMapperInvalidArgumentException extends BaseInvalidArgException
 {
   
 }

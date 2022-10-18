@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Mad\LiquidOrm\DataMapper;
 
+use Mad\Base\Exception\BaseInvalidArgException;
 use Mad\LiquidOrm\DataMapper\Exception\DataMapperInvalidArgumentException;
 
 class DataMapperEnvConfig
@@ -34,7 +35,9 @@ class DataMapperEnvConfig
     $connectionArray = [];
     $this->isCredentialsValid($driver);
     foreach ($this->credentials as $credential) {
-      if (array_key_exists($driver, $credential)) {
+      if (!array_key_exists($driver, $credential)) {
+        throw new BaseInvalidArgException('Your selected Database driver is not supported. Please see the database.yaml file for all support driver. Or specify a supported driver from your app.yaml configuration file');
+      } else {
         $connectionArray = $credential[$driver];
       }
     }
@@ -50,14 +53,9 @@ class DataMapperEnvConfig
    */
   private function isCredentialsValid(string $driver): void
   {
-    if (empty($driver) && !is_string($driver)) {
-      throw new DataMapperInvalidArgumentException('Invalid argument. This is either missing or off the invalid data type.');
+    if (empty($driver) || !is_array($this->credentials)) {
+      throw new BaseInvalidArgException('You have either not specify the default database driver or the database.yaml is returning null or empty.');
     }
-    if (!is_array($this->credentials)) {
-      throw new DataMapperInvalidArgumentException('Invalid credentials');
-    }
-    if (!in_array($driver, array_keys($this->credentials[$driver]))) {
-      throw new DataMapperInvalidArgumentException('Invalid or unsupported database driver.');
-    }
+    
   }
 }

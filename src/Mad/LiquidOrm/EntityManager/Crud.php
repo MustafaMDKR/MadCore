@@ -96,7 +96,7 @@ class Crud implements CrudInterface
             $query = $this->queryBuilder->buildQuery($args)->insertQuery();
             $this->dataMapper->persist($query, $this->dataMapper->buildQueryParameters($fields));
 
-            if (1 == $this->dataMapper->numRows()) {
+            if ($this->dataMapper->numRows() == 1) {
                 return true;
             }
         } catch (Throwable $throwable) {
@@ -116,15 +116,11 @@ class Crud implements CrudInterface
      */
     public function read(array $selectors = [], array $conditions = [], array $params = [], array $optional = []): array
     {
-        try {
-            $args = ['table' => $this->getSchema(), 'type' => 'select', 'selectors' => $selectors, 'conditions' => $conditions, 'params' => $params, 'extras' => $optional];
-            $query = $this->queryBuilder->buildQuery($args)->selectQuery();
-            $this->dataMapper->persist($query, $this->dataMapper->buildQueryParameters($conditions, $params));
-            if ($this->dataMapper->numRows() > 0) {
-                return $this->dataMapper->results();
-            }
-        } catch (Throwable $throwable) {
-            throw $http_response_header;
+        $args = ['table' => $this->getSchema(), 'type' => 'select', 'selectors' => $selectors, 'conditions' => $conditions, 'params' => $params, 'extras' => $optional];
+        $query = $this->queryBuilder->buildQuery($args)->selectQuery();
+        $this->dataMapper->persist($query, $this->dataMapper->buildQueryParameters($conditions, $params));
+        if ($this->dataMapper->numRows() >= 0) {
+            return $this->dataMapper->results();
         }
     }
 
@@ -185,7 +181,7 @@ class Crud implements CrudInterface
             $args = ['table' => $this->getSchema(), 'type' => 'search', 'selectors' => $selectors, 'conditions' => $conditions];
             $query = $this->queryBuilder->buildQuery($args)->searchQuery();
             $this->dataMapper->persist($query, $this->dataMapper->buildQueryParameters($conditions));
-            if ($this->dataMapper->numRows() > 0) {
+            if ($this->dataMapper->numRows() >= 0) {
                 return $this->dataMapper->results();
             }
         } catch (Throwable $throwable) {

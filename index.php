@@ -22,4 +22,4 @@ $app = new Application(ROOT_PATH);
 $app
     ->run()
     ->setSession()
-    ->setRouteHandler($_SERVER['REQUEST_URI']);
+    ->setRouteHandler();

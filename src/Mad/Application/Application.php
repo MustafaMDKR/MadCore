@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Mad\Application;
 
-use Mad\Router\RouterManager;
+use Mad\Router\Router;
+use Mad\Router\RouterFactory;
 use Mad\Traits\SystemTrait;
-
-
+use Mad\Yaml\YamlConfig;
 
 class Application
 {
@@ -16,6 +16,13 @@ class Application
      * @var string
      */
     protected string $appRoot;
+
+
+    /**
+     * @var array
+     */
+    protected array $options = [];
+
 
     /**
      * Main class constructor
@@ -96,9 +103,13 @@ class Application
         return $this;
     }
 
-    public function setRouteHandler(string $url): self
+    public function setRouteHandler(string $url = null, array $routes = []): self
     {
-        RouterManager::dispatchRoute($url);
+        $url = ($url) ? $url : $_SERVER['QUERY_STRING'];
+        $routes = ($routes) ? $routes : YamlConfig::file('routes');
+
+        $factory = new RouterFactory($url, $routes);
+        $factory->create(Router::class)->buildRoutes();
         return $this;
     }
 }

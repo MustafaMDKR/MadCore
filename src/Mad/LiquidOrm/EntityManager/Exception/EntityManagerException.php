@@ -4,9 +4,9 @@ declare (strict_types=1);
 
 namespace Mad\LiquidOrm\EntityManager\Exception;
 
-use Exception;
+use Mad\Base\Exception\BaseException;
 
-class EntityManagerException extends Exception
+class EntityManagerException extends BaseException
 {
     
 }

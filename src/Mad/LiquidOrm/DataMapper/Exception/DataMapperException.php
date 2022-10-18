@@ -2,9 +2,10 @@
 declare(strict_types=1);
 namespace Mad\LiquidOrm\DataMapper\Exception;
 
-use Exception;
 
-class DataMapperException extends Exception
+use Mad\Base\Exception\BaseException;
+
+class DataMapperException extends BaseException
 {
   
 }

@@ -4,7 +4,10 @@ declare (strict_types=1);
 
 namespace Mad\LiquidOrm\DataRepository;
 
-use Mad\LiquidOrm\DataRepository\Exception\DataRepositoryException;
+use Mad\Base\Exception\BaseUnexpectedValueException;
+use Mad\LiquidOrm\DataMapper\DataMapperEnvConfig;
+use Mad\LiquidOrm\LiquidOrmManager;
+use Mad\Yaml\YamlConfig;
 
 class DataRepositoryFactory
 {
@@ -48,12 +51,21 @@ class DataRepositoryFactory
      */
     public function create(string $dataRepositoryString)
     {
-        $dataRepositoryObject = new $dataRepositoryString();
+        $entityManager = $this->intializeLiquidOrmManager();
+        $dataRepositoryObject = new $dataRepositoryString($entityManager);
         if (!$dataRepositoryObject instanceof DataRepositoryInterface) {
-            throw new DataRepositoryException($dataRepositoryString . ' is not a valid repository object');
+            throw new BaseUnexpectedValueException($dataRepositoryString . ' is not a valid repository object');
         }
         return $dataRepositoryObject;
     }
 
+
+
+    public function intializeLiquidOrmManager()
+    {
+        $envConfiguration = new DataMapperEnvConfig(YamlConfig::file('database'));
+        $ormManager = new LiquidOrmManager($envConfiguration, $this->tableSchema, $this->tableSchemaID);
+        return $ormManager->intialize();
+    }
     
 }

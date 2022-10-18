@@ -18,4 +18,19 @@ class HomeController extends BaseController
     {
         echo 'HomeController';
     }
+
+
+
+    protected function before()
+    {
+
+    }
+
+
+
+    protected function after()
+    {
+
+    }
+    
 }

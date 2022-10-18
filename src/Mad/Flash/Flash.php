@@ -10,7 +10,7 @@ class Flash implements FlashInterface
 {
 
     /**
-     * A constant of flsh key
+     * A constant of flash key
      */
     protected const FLASH_KEY = 'flash_message';
 
